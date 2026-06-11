@@ -1,12 +1,24 @@
-
 from services.gemini_service import ask_gemini
+from services.chroma_service import retrieve_documents
 
 def architecture_agent(problem):
 
-    prompt = f"""
-    Design a complete system architecture for:
+    docs = retrieve_documents(problem)
 
+    context = "\n".join(docs)
+
+    prompt = f"""
+    You are a System Architect.
+
+    Use the following PDF context if relevant.
+
+    Context:
+    {context}
+
+    Project:
     {problem}
+
+    Design a complete architecture.
 
     Include:
 

@@ -10,7 +10,10 @@ genai.configure(
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
-
 def ask_gemini(prompt):
-    response = model.generate_content(prompt)
-    return response.text
+    try:
+        response = model.generate_content(prompt)
+        return response.text
+
+    except Exception as e:
+        return f"Gemini API Error: {str(e)}"
